@@ -15,7 +15,7 @@ public class TankMovement : MonoBehaviour
     private Rigidbody m_Rigidbody;         
     private float m_MovementInputValue;    
     private float m_TurnInputValue;        
-    private float m_OriginalPitch;         
+    private float m_OriginalPitch;
 
 
     private void Awake()
