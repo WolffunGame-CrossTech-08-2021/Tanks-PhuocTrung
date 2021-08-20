@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ShellExplosion : MonoBehaviour
 {
@@ -14,9 +15,9 @@ public class ShellExplosion : MonoBehaviour
     private void Start()
     {
         // If it isn't destroyed by then, destroy the shell after it's lifetime.
-        Destroy(gameObject, m_MaxLifeTime);
+        // Destroy(gameObject, m_MaxLifeTime);
+        StartCoroutine(BulletObjectPool.DeactiveObject(gameObject, m_MaxLifeTime));
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -50,6 +51,8 @@ public class ShellExplosion : MonoBehaviour
             targetHealth.TakeDamage(damage);
         }
 
+        m_ExplosionParticles.transform.position = gameObject.transform.position;
+
         // Unparent the particles from the shell.
         m_ExplosionParticles.transform.parent = null;
 
@@ -59,11 +62,9 @@ public class ShellExplosion : MonoBehaviour
         // Play the explosion sound effect.
         m_ExplosionAudio.Play();
 
-        // Once the particles have finished, destroy the gameobject they are on.
-        Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
+        // BulletObjectPool.DeactiveObject(m_ExplosionParticles.gameObject, m_ExplosionParticles.main.duration);
 
-        // Destroy the shell.
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 
