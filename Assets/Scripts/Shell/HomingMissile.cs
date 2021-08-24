@@ -11,6 +11,8 @@ public class HomingMissile : MonoBehaviour
     private Rigidbody rbShell;
     private GameObject tankShoot;
 
+    private Rigidbody target;
+
     private void Awake()
     {
         rbShell = GetComponent<Rigidbody>();
@@ -25,22 +27,28 @@ public class HomingMissile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, scanRadius, tankMask);
-        for (int i = 0; i < colliders.Length; i++)
+        if (!target)
         {
-            Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
-
-            if (!targetRigidbody)
+            Collider[] colliders = Physics.OverlapSphere(transform.position, scanRadius, tankMask);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
+                if (!targetRigidbody)
+                    break;
+                if (colliders[i].gameObject == tankShoot)
+                    continue;
+                target = targetRigidbody;
                 break;
-
-            if (colliders[i].gameObject == tankShoot)
-                continue;
-
-            rbShell.velocity = rbShell.transform.forward * speed;
-
-            Quaternion rocketTargetRot = Quaternion.LookRotation(targetRigidbody.position - rbShell.transform.position);
-
-            rbShell.MoveRotation(Quaternion.RotateTowards(rbShell.transform.rotation, rocketTargetRot, rotateSpeed));
+            }
         }
+
+        rbShell.velocity = rbShell.transform.forward * speed;
+        Quaternion rocketTargetRot = Quaternion.LookRotation(target.position - rbShell.transform.position);
+        rbShell.MoveRotation(Quaternion.RotateTowards(rbShell.transform.rotation, rocketTargetRot, rotateSpeed));
+    }
+
+    private void OnDestroy()
+    {
+        target = null;
     }
 }
