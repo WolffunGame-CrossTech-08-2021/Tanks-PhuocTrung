@@ -42,9 +42,12 @@ public class HomingMissile : MonoBehaviour
             }
         }
 
-        rbShell.velocity = rbShell.transform.forward * speed;
-        Quaternion rocketTargetRot = Quaternion.LookRotation(target.position - rbShell.transform.position);
-        rbShell.MoveRotation(Quaternion.RotateTowards(rbShell.transform.rotation, rocketTargetRot, rotateSpeed));
+        if (target)
+        {
+            rbShell.velocity = rbShell.transform.forward * speed;
+            Quaternion rocketTargetRot = Quaternion.LookRotation(target.position - rbShell.transform.position);
+            rbShell.MoveRotation(Quaternion.RotateTowards(rbShell.transform.rotation, rocketTargetRot, rotateSpeed));
+        }
     }
 
     private void OnDestroy()

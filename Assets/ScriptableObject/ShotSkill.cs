@@ -2,7 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ShotSkill : ScriptableObject
+[CreateAssetMenu(fileName = "New Skill", menuName = "Skills/Shot Skill")]
+public class ShotSkill : ScriptableObject
 {
-    public abstract void Shoot();
+    private void Awake()
+    {
+        
+    }
+
+    public void Shoot()
+    {
+    }
 }

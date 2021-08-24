@@ -14,6 +14,8 @@ public class GameManager : Singleton<GameManager>
     public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
     public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
 
+    [HideInInspector]
+    public bool isGameStarted;
 
     private int m_RoundNumber;                  // Which round the game is currently on.
     private WaitForSeconds m_StartWait;         // Used to have a delay whilst the round starts.
@@ -72,8 +74,12 @@ public class GameManager : Singleton<GameManager>
         // Start off by running the 'RoundStarting' coroutine but don't return until it's finished.
         yield return StartCoroutine(RoundStarting());
 
+        isGameStarted = true;
+
         // Once the 'RoundStarting' coroutine is finished, run the 'RoundPlaying' coroutine but don't return until it's finished.
         yield return StartCoroutine(RoundPlaying());
+
+        isGameStarted = false;
 
         // Once execution has returned here, run the 'RoundEnding' coroutine, again don't return until it's finished.
         yield return StartCoroutine(RoundEnding());
