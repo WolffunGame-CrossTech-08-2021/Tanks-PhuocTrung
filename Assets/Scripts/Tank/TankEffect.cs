@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class TankEffect : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    List<Effect> currentEffects = new List<Effect>();
+
+    private void Update()
     {
-        
+        foreach (Effect effect in currentEffects)
+        {
+            effect.ProcessTick();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddEffect(Effect newEffect)
     {
-        
+        currentEffects.Add(newEffect);
     }
 }

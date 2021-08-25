@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +13,9 @@ public class GameManager : Singleton<GameManager>
     public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
     public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
     public int m_TankControlId = 1;
+
+    public GameObject baseItemPrefab;
+    public Item[] m_Items;
 
     [HideInInspector]
     public bool isGameStarted;
@@ -31,12 +33,24 @@ public class GameManager : Singleton<GameManager>
         m_EndWait = new WaitForSeconds(m_EndDelay);
 
         SpawnAllTanks();
+        SpawnAllItems();
         SetCameraTargets();
 
         // Once the tanks have been created and the camera is using them as targets, start the game.
         StartCoroutine(GameLoop());
     }
 
+    private void SpawnAllItems()
+    {
+        for (int i = 0; i < m_Items.Length; i++)
+        {
+            GameObject item = Instantiate(baseItemPrefab, new Vector3(Random.Range(-30, 30), 1.5f, Random.Range(-30, 30)), Quaternion.identity);
+            MeshFilter mesh = item.GetComponent<MeshFilter>();
+            mesh.sharedMesh = m_Items[i].mesh;
+            mesh.GetComponent<Renderer>().material.color = m_Items[i].color;
+            item.transform.localScale = new Vector3(m_Items[i].scale, m_Items[i].scale, m_Items[i].scale);
+        }
+    }
 
     private void SpawnAllTanks()
     {
