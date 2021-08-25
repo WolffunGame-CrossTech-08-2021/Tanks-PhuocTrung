@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class IShell : MonoBehaviour
+public class Shell : MonoBehaviour
 {
 
 }
