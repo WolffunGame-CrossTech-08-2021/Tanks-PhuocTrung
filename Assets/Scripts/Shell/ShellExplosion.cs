@@ -5,7 +5,6 @@ public class ShellExplosion : MonoBehaviour
 {
     public LayerMask m_TankMask;                        // Used to filter what the explosion affects, this should be set to "Players".
     public ParticleSystem m_ExplosionParticles;         // Reference to the particles that will play on explosion.
-    public ParticleSystem m_TankExplosionParticles;
     public AudioSource m_ExplosionAudio;                // Reference to the audio that will play on explosion.
     public float m_MaxDamage = 100f;                    // The amount of damage done if the explosion is centred on a tank.
     public float m_ExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
@@ -22,7 +21,6 @@ public class ShellExplosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        bool isTankCollision = false;
         // Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
         Collider[] colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
 
@@ -51,30 +49,15 @@ public class ShellExplosion : MonoBehaviour
 
             // Deal this damage to the tank.
             targetHealth.TakeDamage(damage);
-
-            isTankCollision = true;
         }
 
-        if (isTankCollision)
-        {
-            m_TankExplosionParticles.transform.position = gameObject.transform.position;
+        m_ExplosionParticles.transform.position = gameObject.transform.position;
 
-            // Unparent the particles from the shell.
-            m_TankExplosionParticles.transform.parent = null;
+        // Unparent the particles from the shell.
+        m_ExplosionParticles.transform.parent = null;
 
-            // Play the particle system.
-            m_TankExplosionParticles.Play();
-        } else
-        {
-            m_ExplosionParticles.transform.position = gameObject.transform.position;
-
-            // Unparent the particles from the shell.
-            m_ExplosionParticles.transform.parent = null;
-
-            // Play the particle system.
-            m_ExplosionParticles.Play();
-        }
-
+        // Play the particle system.
+        m_ExplosionParticles.Play();
         
 
         // Play the explosion sound effect.

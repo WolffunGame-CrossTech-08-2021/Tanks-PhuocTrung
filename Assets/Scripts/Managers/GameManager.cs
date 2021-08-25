@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
     public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
     public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
+    public int m_TankControlId = 1;
 
     [HideInInspector]
     public bool isGameStarted;

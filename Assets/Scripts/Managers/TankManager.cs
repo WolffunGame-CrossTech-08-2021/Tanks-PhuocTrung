@@ -9,18 +9,24 @@ public class TankManager
     [HideInInspector] public int m_PlayerNumber;             
     [HideInInspector] public string m_ColoredPlayerText;
     [HideInInspector] public GameObject m_Instance;          
-    [HideInInspector] public int m_Wins;                     
+    [HideInInspector] public int m_Wins;
+    [HideInInspector] public bool m_IsBot;
 
-
-    private TankMovement m_Movement;       
-    private TankShooting m_Shooting;
-    private GameObject m_CanvasGameObject;
+    [HideInInspector]
+    public TankMovement m_Movement;
+    [HideInInspector]
+    public TankShooting m_Shooting;
+    [HideInInspector]
+    public TankEffect m_TankEffect;
+    [HideInInspector]
+    public GameObject m_CanvasGameObject;
 
 
     public void Setup()
     {
         m_Movement = m_Instance.GetComponent<TankMovement>();
         m_Shooting = m_Instance.GetComponent<TankShooting>();
+        m_TankEffect = m_Instance.GetComponent<TankEffect>();
         m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
         m_Movement.m_PlayerNumber = m_PlayerNumber;

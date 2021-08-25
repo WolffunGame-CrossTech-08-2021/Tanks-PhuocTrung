@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+public enum TankShootingMode
+{
+    NORMAL,
+    RAPID,
+    CONE
+}
+
 public class TankShooting : MonoBehaviour
 {
     public int m_PlayerNumber = 1;              // Used to identify the different players.
@@ -13,7 +20,7 @@ public class TankShooting : MonoBehaviour
     public float m_MinLaunchForce = 15f;        // The force given to the shell if the fire button is not held.
     public float m_MaxLaunchForce = 30f;        // The force given to the shell if the fire button is held for the max charge time.
     public float m_MaxChargeTime = 0.75f;       // How long the shell can charge for before it is fired at max force.
-
+    public TankShootingMode m_ShootingMode = TankShootingMode.NORMAL;
 
     private string m_FireButton;                // The input axis that is used for launching shells.
     private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
@@ -84,50 +91,7 @@ public class TankShooting : MonoBehaviour
         // Set the fired flag so only Fire is only called once.
         m_Fired = true;
 
-        bool rapidFireMode = true;
-
-        if (rapidFireMode)
-        {
-            GameObject bullet = BulletObjectPool.Instance.GetPooledObject();
-            if (bullet)
-            {
-                bullet.transform.position = m_FireTransform.position;
-                bullet.transform.rotation = m_FireTransform.rotation;
-                Rigidbody rb = bullet.GetComponent<Rigidbody>();
-                rb.velocity = m_CurrentLaunchForce * bullet.transform.forward;
-                bullet.transform.SetParent(gameObject.transform);
-                bullet.SetActive(true);
-            }
-        }
-        else
-        {
-
-            for (int i = -2; i <= 2; i++)
-            {
-                Vector3 bulletRotaion = m_FireTransform.rotation.eulerAngles;
-                bulletRotaion.y += 10f * i;
-
-                GameObject bullet = BulletObjectPool.Instance.GetPooledObject();
-                if (bullet)
-                {
-                    bullet.transform.position = m_FireTransform.position;
-                    bullet.transform.rotation = Quaternion.Euler(bulletRotaion);
-                    Rigidbody rb = bullet.GetComponent<Rigidbody>();
-                    rb.velocity = m_CurrentLaunchForce * bullet.transform.forward;
-                    bullet.transform.SetParent(gameObject.transform);
-                    bullet.SetActive(true);
-                }
-
-
-
-                // Create an instance of the shell and store a reference to it's rigidbody.
-                // Rigidbody shellInstance = Instantiate(m_Shell, m_FireTransform.position, Quaternion.Euler(bulletRotaion));
-
-                // Set the shell's velocity to the launch force in the fire position's forward direction.
-                // shellInstance.velocity = m_CurrentLaunchForce * shellInstance.transform.forward;
-            }
-
-        }
+        ShootFactory.Fire(m_ShootingMode, gameObject, m_FireTransform, m_CurrentLaunchForce);
 
         // Change the clip to the firing clip and play it.
         m_ShootingAudio.clip = m_FireClip;

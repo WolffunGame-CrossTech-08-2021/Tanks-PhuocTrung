@@ -26,7 +26,7 @@ public class TankBotController : MonoBehaviour
             GameManager.Instance.m_Tanks[0].m_Instance.transform.position) < 20f)
         {
             elapsedTime = Time.time + coutDownTime;
-            Fire();
+            // Fire();
         }
     }
 
