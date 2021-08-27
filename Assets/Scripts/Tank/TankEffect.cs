@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class TankEffect : MonoBehaviour
 {
-    List<Effect> currentEffects = new List<Effect>();
+    private List<Effect> _currentEffects = new List<Effect>();
 
     private void Update()
     {
-        foreach (Effect effect in currentEffects)
+        foreach (Effect effect in _currentEffects)
         {
-            effect.ProcessTick();
+            if (!effect.ProcessTick())
+                RemoveEffect(effect);
         }
     }
 
     public void AddEffect(Effect newEffect)
     {
-        currentEffects.Add(newEffect);
+        _currentEffects.Add(newEffect);
+    }
+    
+    public void RemoveEffect(Effect newEffect)
+    {
+        _currentEffects.Remove(newEffect);
     }
 }

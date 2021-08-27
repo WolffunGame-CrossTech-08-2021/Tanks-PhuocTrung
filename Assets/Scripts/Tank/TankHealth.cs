@@ -46,6 +46,9 @@ public class TankHealth : MonoBehaviour
         // Reduce current health by the amount of damage done.
         m_CurrentHealth -= amount;
 
+        if (m_CurrentHealth > m_StartingHealth)
+            m_CurrentHealth = m_StartingHealth;
+
         // Change the UI elements appropriately.
         SetHealthUI();
 

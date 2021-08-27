@@ -15,7 +15,7 @@ public class ItemFactory
             case ItemEnum.Rocket:
                 return new RocketItem();
             default:
-                Debug.LogError("Item name incorrect !");
+                Debug.LogError("Item name incorrect @@ !");
                 return null;
         }
     }

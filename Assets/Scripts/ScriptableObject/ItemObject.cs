@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Item")]
+[CreateAssetMenu(menuName = "Tanks/Item")]
 public class ItemObject : ScriptableObject
 {
     public new string name;
@@ -9,10 +9,12 @@ public class ItemObject : ScriptableObject
     public Mesh mesh;
     public Color color = Color.white;
     public float scale = 1.0f;
-    // public Effect[] effects;
+    public EffectObject[] effects;
 
     public void ActiveItem(GameObject tank)
     {
-        ItemFactory.GetItem(nameEnum).ActiveItem(tank);
+        ItemFactory.GetItem(nameEnum)
+            .SetItemObject(this)
+            .ActiveItem(tank);
     }
 }
