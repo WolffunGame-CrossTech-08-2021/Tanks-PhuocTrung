@@ -11,11 +11,11 @@ public class GameManager : Singleton<GameManager>
     public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
     public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
     public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
-    public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
+    public TankEntity[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
     public int m_TankControlId = 1;
 
     public GameObject baseItemPrefab;
-    public Item[] m_Items;
+    public ItemObject[] m_Items;
 
     [HideInInspector]
     public bool isGameStarted;
@@ -23,8 +23,8 @@ public class GameManager : Singleton<GameManager>
     private int m_RoundNumber;                  // Which round the game is currently on.
     private WaitForSeconds m_StartWait;         // Used to have a delay whilst the round starts.
     private WaitForSeconds m_EndWait;           // Used to have a delay whilst the round or game ends.
-    private TankManager m_RoundWinner;          // Reference to the winner of the current round.  Used to make an announcement of who won.
-    private TankManager m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
+    private TankEntity m_RoundWinner;          // Reference to the winner of the current round.  Used to make an announcement of who won.
+    private TankEntity m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
 
     private void Start()
     {
@@ -44,11 +44,17 @@ public class GameManager : Singleton<GameManager>
     {
         for (int i = 0; i < m_Items.Length; i++)
         {
+            // Init game object
             GameObject item = Instantiate(baseItemPrefab, new Vector3(Random.Range(-30, 30), 1.5f, Random.Range(-30, 30)), Quaternion.identity);
+            
+            // Change model of item
             MeshFilter mesh = item.GetComponent<MeshFilter>();
             mesh.sharedMesh = m_Items[i].mesh;
             mesh.GetComponent<Renderer>().material.color = m_Items[i].color;
             item.transform.localScale = new Vector3(m_Items[i].scale, m_Items[i].scale, m_Items[i].scale);
+            
+            // Assign scriptable object
+            item.GetComponent<ItemPickupable>().itemObject = m_Items[i];
         }
     }
 
@@ -203,7 +209,7 @@ public class GameManager : Singleton<GameManager>
 
     // This function is to find out if there is a winner of the round.
     // This function is called with the assumption that 1 or fewer tanks are currently active.
-    private TankManager GetRoundWinner()
+    private TankEntity GetRoundWinner()
     {
         // Go through all the tanks...
         for (int i = 0; i < m_Tanks.Length; i++)
@@ -219,7 +225,7 @@ public class GameManager : Singleton<GameManager>
 
 
     // This function is to find out if there is a winner of the game.
-    private TankManager GetGameWinner()
+    private TankEntity GetGameWinner()
     {
         // Go through all the tanks...
         for (int i = 0; i < m_Tanks.Length; i++)
