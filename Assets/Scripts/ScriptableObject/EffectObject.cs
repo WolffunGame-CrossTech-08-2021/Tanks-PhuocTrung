@@ -8,8 +8,8 @@ public class EffectObject : ScriptableObject
     public EffectFor effectFor;
     public float duration;
 
-    public void ActiveEffect(GameObject tank)
+    public Effect GetCurrentEffect(GameObject tank)
     {
-        EffectFactory.GetEffect(nameEnum, tank, this).ActiveEffect();
+        return EffectFactory.GetEffect(nameEnum, tank, this, effectFor, duration);
     }
 }

@@ -3,9 +3,19 @@ using UnityEngine;
 
 public class NormalShoot : IShoot
 {
+    private int _paramShoot;
+    private HomingMissile _homingMissile;
+
+    public NormalShoot(int paramsShoot)
+    {
+        _paramShoot = paramsShoot;
+    }
+    
     public void Fire(GameObject tankObject, Transform fireTransform, float force)
     {
         GameObject bullet = BulletObjectPool.Instance.GetPooledObject();
+        _homingMissile = bullet.GetComponent<HomingMissile>();
+        _homingMissile.enabled = BitExtensions.IsBitSetTo1(_paramShoot, 0);
         if (bullet)
         {
             bullet.transform.position = fireTransform.position;

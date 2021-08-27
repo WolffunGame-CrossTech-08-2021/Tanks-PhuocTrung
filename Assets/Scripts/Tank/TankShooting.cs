@@ -20,7 +20,15 @@ public class TankShooting : MonoBehaviour
     public float m_MinLaunchForce = 15f;        // The force given to the shell if the fire button is not held.
     public float m_MaxLaunchForce = 30f;        // The force given to the shell if the fire button is held for the max charge time.
     public float m_MaxChargeTime = 0.75f;       // How long the shell can charge for before it is fired at max force.
+    
     public TankShootingMode m_ShootingMode = TankShootingMode.NORMAL;
+    
+    // Bit 0: useRocket?
+    // Bit 1: usePoison?
+    // Bit 2: ....
+    // Bit 3: ....
+    [HideInInspector]
+    public int paramsShoot = 0;
 
     private string m_FireButton;                // The input axis that is used for launching shells.
     private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
@@ -91,7 +99,7 @@ public class TankShooting : MonoBehaviour
         // Set the fired flag so only Fire is only called once.
         m_Fired = true;
 
-        ShootFactory.Fire(m_ShootingMode, gameObject, m_FireTransform, m_CurrentLaunchForce);
+        ShootFactory.Fire(m_ShootingMode, gameObject, m_FireTransform, m_CurrentLaunchForce, paramsShoot);
 
         // Change the clip to the firing clip and play it.
         m_ShootingAudio.clip = m_FireClip;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class ShellExplosion : MonoBehaviour
@@ -11,6 +12,12 @@ public class ShellExplosion : MonoBehaviour
     public float m_MaxLifeTime = 2f;                    // The time in seconds before the shell is removed.
     public float m_ExplosionRadius = 5f;                // The maximum distance away from the explosion tanks can be and are still affected.
 
+    private HomingMissile _homingMissile;
+
+    private void Awake()
+    {
+        _homingMissile = GetComponent<HomingMissile>();
+    }
 
     private void Start()
     {
@@ -90,5 +97,15 @@ public class ShellExplosion : MonoBehaviour
         damage = Mathf.Max(0f, damage);
 
         return damage;
+    }
+
+    private void OnDisable()
+    {
+        ResetStateShell();
+    }
+
+    private void ResetStateShell()
+    {
+        _homingMissile.enabled = false;
     }
 }

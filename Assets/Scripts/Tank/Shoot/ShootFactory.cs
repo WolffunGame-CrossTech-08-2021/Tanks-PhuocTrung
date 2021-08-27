@@ -2,7 +2,7 @@
 
 public class ShootFactory : MonoBehaviour
 {
-    public static void Fire(TankShootingMode mode, GameObject tankObject, Transform fireTransform, float force)
+    public static void Fire(TankShootingMode mode, GameObject tankObject, Transform fireTransform, float force, int paramsShoot)
     {
         IShoot shoot;
         switch (mode)
@@ -16,7 +16,7 @@ public class ShootFactory : MonoBehaviour
 
             default:
             case TankShootingMode.NORMAL:
-                shoot = new NormalShoot();
+                shoot = new NormalShoot(paramsShoot);
                 break;
         }
         

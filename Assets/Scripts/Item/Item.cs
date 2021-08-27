@@ -12,12 +12,13 @@ public abstract class Item
 
     public virtual void ActiveItem(GameObject tank)
     {
-        if (_itemObject)
+        if (!_itemObject) return;
+        TankEffect tankEffect = tank.GetComponent<TankEffect>();
+        foreach (EffectObject effect in _itemObject.effects)
         {
-            for (int i = 0; i < _itemObject.effects.Length; i++)
-            {
-                
-            }
+            Effect currentEffect = effect.GetCurrentEffect(tank);
+            tankEffect.AddEffect(currentEffect);
+            currentEffect.ActiveEffect();
         }
     }
 }

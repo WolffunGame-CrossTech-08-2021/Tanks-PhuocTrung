@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TankEffect : MonoBehaviour
@@ -8,7 +8,7 @@ public class TankEffect : MonoBehaviour
 
     private void Update()
     {
-        foreach (Effect effect in _currentEffects)
+        foreach (var effect in _currentEffects.ToList())
         {
             if (!effect.ProcessTick())
                 RemoveEffect(effect);

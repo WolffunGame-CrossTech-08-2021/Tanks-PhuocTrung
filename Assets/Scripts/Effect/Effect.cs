@@ -6,18 +6,19 @@ public abstract class Effect
 {
     public GameObject Tank;
     public EffectObject EffectObject;
-    private float _currentDuration;
+    protected float currentDuration;
 
-    public Effect(GameObject tank, EffectObject effect)
+    public Effect(GameObject tank, EffectObject effect, EffectFor effectFor, float duration)
     {
         Tank = tank;
         EffectObject = effect;
+        currentDuration = duration;
     }
     
-    public bool ProcessTick()
+    public virtual bool ProcessTick()
     {
-        _currentDuration -= Time.deltaTime;
-        if (_currentDuration <= 0)
+        currentDuration -= Time.deltaTime;
+        if (currentDuration <= 0)
         {
             DeactiveEffect();
             return false;
