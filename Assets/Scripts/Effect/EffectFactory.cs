@@ -12,6 +12,8 @@ public class EffectFactory
                 return new SlowEffect(tank, effectObject, effectFor, duration);
             case EffectEnum.CanHitRocket:
                 return new CanHitRocket(tank, effectObject, effectFor, duration);
+            case EffectEnum.CanHitPoison:
+                return new CanHitPoison(tank, effectObject, effectFor, duration);
             default:
                 Debug.LogError("Effect name incorrect @@ !");
                 return null;

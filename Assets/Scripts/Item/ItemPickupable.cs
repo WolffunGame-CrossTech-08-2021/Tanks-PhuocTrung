@@ -17,6 +17,7 @@ public class ItemPickupable : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Pickup " + itemObject);
             itemObject.ActiveItem(other.gameObject);
             Destroy(gameObject);
         }

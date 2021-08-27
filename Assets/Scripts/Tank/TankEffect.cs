@@ -10,6 +10,7 @@ public class TankEffect : MonoBehaviour
     {
         foreach (var effect in _currentEffects.ToList())
         {
+            Debug.Log(effect);
             if (!effect.ProcessTick())
                 RemoveEffect(effect);
         }

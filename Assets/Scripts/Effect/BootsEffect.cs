@@ -13,11 +13,13 @@ public class BootsEffect : Effect
 
     public override void ActiveEffect()
     {
+        base.ActiveEffect();
         _tankMovement.m_Speed += NumSpeedUp;
     }
 
     public override void DeactiveEffect()
     {
+        base.DeactiveEffect();
         _tankMovement.m_Speed -= NumSpeedUp;
     }
 }
