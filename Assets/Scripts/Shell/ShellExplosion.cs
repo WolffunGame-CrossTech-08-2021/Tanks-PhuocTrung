@@ -15,7 +15,9 @@ public class ShellExplosion : MonoBehaviour
 
     private HomingMissile _homingMissile;
 
-    public bool isContainToxic = false;
+    [HideInInspector] public bool isContainToxic = false;
+    [HideInInspector] public bool isContainSlow = false;
+    [HideInInspector] public bool isContainStun = false;
 
     private void Awake()
     {
@@ -62,6 +64,24 @@ public class ShellExplosion : MonoBehaviour
                 TankEffect tankEffect = targetRigidbody.GetComponent<TankEffect>();
                 Effect effect =
                     new PoisonedEffect(targetRigidbody.gameObject, EffectManager.Instance.Get(EffectEnum.Poisoned));
+                effect.ActiveEffect();
+                tankEffect.AddEffect(effect);
+            }
+            
+            if (isContainSlow)
+            {
+                TankEffect tankEffect = targetRigidbody.GetComponent<TankEffect>();
+                Effect effect =
+                    new SlowEffect(targetRigidbody.gameObject, EffectManager.Instance.Get(EffectEnum.Slow));
+                effect.ActiveEffect();
+                tankEffect.AddEffect(effect);
+            }
+            
+            if (isContainStun)
+            {
+                TankEffect tankEffect = targetRigidbody.GetComponent<TankEffect>();
+                Effect effect =
+                    new StunEffect(targetRigidbody.gameObject, EffectManager.Instance.Get(EffectEnum.Stun));
                 effect.ActiveEffect();
                 tankEffect.AddEffect(effect);
             }
@@ -119,5 +139,8 @@ public class ShellExplosion : MonoBehaviour
     private void ResetStateShell()
     {
         _homingMissile.enabled = false;
+        isContainToxic = false;
+        isContainSlow = false;
+        isContainStun = false;
     }
 }

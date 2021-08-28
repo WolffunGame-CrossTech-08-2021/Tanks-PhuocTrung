@@ -26,7 +26,6 @@ public class NormalShoot : IShoot
             // Toxins ?
             _shellExplosion = bullet.GetComponent<ShellExplosion>();
             _shellExplosion.isContainToxic = BitExtensions.IsBitSetTo1(_paramShoot, 1);
-            Debug.Log(_shellExplosion.isContainToxic);
 
 
             bullet.transform.position = fireTransform.position;

@@ -11,6 +11,9 @@ public class RapidShoot : IShoot
             GameObject bullet = BulletObjectPool.Instance.GetPooledObject();
             if (bullet)
             {
+                ShellExplosion shellExplosion = bullet.GetComponent<ShellExplosion>();
+                shellExplosion.isContainStun = true;
+                
                 bullet.transform.position = fireTransform.position + (fireTransform.forward * i * 1f);
                 bullet.transform.rotation = fireTransform.rotation;
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();

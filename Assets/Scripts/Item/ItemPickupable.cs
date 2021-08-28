@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 public class ItemPickupable : MonoBehaviour
 {
@@ -19,7 +17,8 @@ public class ItemPickupable : MonoBehaviour
         {
             Debug.Log("Pickup " + itemObject);
             itemObject.ActiveItem(other.gameObject);
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            gameObject.transform.position = new Vector3(Random.Range(-30, 30), 1.5f, Random.Range(-30, 30));
         }
     }
 }

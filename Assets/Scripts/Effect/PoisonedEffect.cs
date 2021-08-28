@@ -10,7 +10,7 @@ public class PoisonedEffect : Effect
     {
         _tankHealth = tank.GetComponent<TankHealth>();
         _elapsed = 0;
-        _damageEverySecond = 10f;
+        _damageEverySecond = 2f;
     }
 
     public override bool ProcessTick()

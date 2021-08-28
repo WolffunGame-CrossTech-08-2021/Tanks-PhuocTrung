@@ -23,6 +23,9 @@ public class ConeShoot : IShoot
             GameObject bullet = BulletObjectPool.Instance.GetPooledObject();
             if (bullet)
             {
+                ShellExplosion shellExplosion = bullet.GetComponent<ShellExplosion>();
+                shellExplosion.isContainSlow = true;
+                
                 bullet.transform.position = fireTransform.position;
                 bullet.transform.rotation = Quaternion.Euler(bulletRotaion);
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
