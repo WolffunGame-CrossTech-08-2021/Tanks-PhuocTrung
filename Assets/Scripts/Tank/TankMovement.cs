@@ -11,16 +11,17 @@ public class TankMovement : MonoBehaviour
     public float m_PitchRange = 0.2f;
 
     private string m_MovementAxisName;     
-    private string m_TurnAxisName;         
+    private string m_TurnAxisName;
+    [SerializeField]
     private Rigidbody m_Rigidbody;         
     private float m_MovementInputValue;    
     private float m_TurnInputValue;        
-    private float m_OriginalPitch;         
+    private float m_OriginalPitch;
 
 
     private void Awake()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
+        // m_Rigidbody = GetComponent<Rigidbody>();
     }
 
 
