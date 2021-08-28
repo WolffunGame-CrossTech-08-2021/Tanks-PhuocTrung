@@ -5,8 +5,7 @@ public class SlowEffect : Effect
     private TankMovement _tankMovement;
     private const int NumSpeedUp = -10;
 
-    public SlowEffect(GameObject tank, EffectObject effect, EffectFor effectFor, float duration) 
-        : base(tank, effect, effectFor, duration)
+    public SlowEffect(GameObject tank, EffectObject effect) : base(tank, effect)
     {
         _tankMovement = tank.GetComponent<TankMovement>();
     }

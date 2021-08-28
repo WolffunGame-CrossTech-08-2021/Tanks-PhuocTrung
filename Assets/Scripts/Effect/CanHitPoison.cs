@@ -2,25 +2,23 @@
 
 public class CanHitPoison : Effect
 {
-    private TankShooting _tankShooting;
-    private float _elapsed;
-    
-    public CanHitPoison(GameObject tank, EffectObject effect, EffectFor effectFor, float duration)
-        : base(tank, effect, effectFor, duration)
+    private const int BitPosition = 1;
+    private readonly TankShooting _tankShooting;
+
+    public CanHitPoison(GameObject tank, EffectObject effect) : base(tank, effect)
     {
-        _tankShooting = Tank.GetComponent<TankShooting>();
-        _elapsed = 0;
+        _tankShooting = tank.GetComponent<TankShooting>();
     }
 
     public override void ActiveEffect()
     {
         base.ActiveEffect();
-        _tankShooting.paramsShoot = BitExtensions.SetBitTo1(_tankShooting.paramsShoot, 1);
+        _tankShooting.paramsShoot = BitExtensions.SetBitTo1(_tankShooting.paramsShoot, BitPosition);
     }
 
     public override void DeactiveEffect()
     {
         base.DeactiveEffect();
-        _tankShooting.paramsShoot = BitExtensions.SetBitTo0(_tankShooting.paramsShoot, 1);
+        _tankShooting.paramsShoot = BitExtensions.SetBitTo0(_tankShooting.paramsShoot, BitPosition);
     }
 }

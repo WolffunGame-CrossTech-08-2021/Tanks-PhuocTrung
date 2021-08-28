@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 
-public class PoisonEffect : Effect
+public class PoisonedEffect : Effect
 {
     private TankHealth _tankHealth;
     private float _elapsed;
+    private readonly float _damageEverySecond;
     
-    public PoisonEffect(GameObject tank, EffectObject effect, EffectFor effectFor, float duration)
-        : base(tank, effect, effectFor, duration)
+    public PoisonedEffect(GameObject tank, EffectObject effect) : base(tank, effect)
     {
-        _tankHealth = Tank.GetComponent<TankHealth>();
+        _tankHealth = tank.GetComponent<TankHealth>();
         _elapsed = 0;
+        _damageEverySecond = 10f;
     }
 
     public override bool ProcessTick()
@@ -17,7 +18,7 @@ public class PoisonEffect : Effect
         _elapsed += Time.deltaTime;
         if (_elapsed >= 0.1f) {
             _elapsed = _elapsed % 0.1f;
-            _tankHealth.TakeDamage(1f);
+            _tankHealth.TakeDamage(_damageEverySecond / 10);
         }
 
         return base.ProcessTick();

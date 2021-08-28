@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ShellExplosion : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class ShellExplosion : MonoBehaviour
     public float m_ExplosionRadius = 5f;                // The maximum distance away from the explosion tanks can be and are still affected.
 
     private HomingMissile _homingMissile;
+
+    public bool isContainToxic = false;
 
     private void Awake()
     {
@@ -53,6 +56,15 @@ public class ShellExplosion : MonoBehaviour
             // If there is no TankHealth script attached to the gameobject, go on to the next collider.
             if (!targetHealth)
                 continue;
+
+            if (isContainToxic)
+            {
+                TankEffect tankEffect = targetRigidbody.GetComponent<TankEffect>();
+                Effect effect =
+                    new PoisonedEffect(targetRigidbody.gameObject, EffectManager.Instance.Get(EffectEnum.Poisoned));
+                effect.ActiveEffect();
+                tankEffect.AddEffect(effect);
+            }
 
             // Calculate the amount of damage the target should take based on it's distance from the shell.
             float damage = CalculateDamage(targetRigidbody.position);

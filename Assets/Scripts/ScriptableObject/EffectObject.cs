@@ -7,9 +7,10 @@ public class EffectObject : ScriptableObject
     public EffectEnum nameEnum;
     public EffectFor effectFor;
     public float duration;
+    public bool canAccumulated = false;
 
     public Effect GetCurrentEffect(GameObject tank)
     {
-        return EffectFactory.GetEffect(nameEnum, tank, this, effectFor, duration);
+        return EffectFactory.GetEffect(nameEnum, tank, this);
     }
 }

@@ -4,16 +4,16 @@ using UnityEngine;
 
 public abstract class Effect
 {
-    public GameObject Tank;
-    public EffectObject EffectObject;
+    public readonly GameObject tank;
+    public EffectObject effectObject;
     protected float currentDuration;
     public bool isEffectActivated;
 
-    public Effect(GameObject tank, EffectObject effect, EffectFor effectFor, float duration)
+    public Effect(GameObject tank, EffectObject effect)
     {
-        Tank = tank;
-        EffectObject = effect;
-        currentDuration = duration;
+        this.tank = tank;
+        effectObject = effect;
+        currentDuration = effect.duration;
     }
     
     public virtual bool ProcessTick()

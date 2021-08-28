@@ -5,6 +5,7 @@ public class NormalShoot : IShoot
 {
     private int _paramShoot;
     private HomingMissile _homingMissile;
+    private ShellExplosion _shellExplosion;
 
     public NormalShoot(int paramsShoot)
     {
@@ -14,10 +15,20 @@ public class NormalShoot : IShoot
     public void Fire(GameObject tankObject, Transform fireTransform, float force)
     {
         GameObject bullet = BulletObjectPool.Instance.GetPooledObject();
-        _homingMissile = bullet.GetComponent<HomingMissile>();
-        _homingMissile.enabled = BitExtensions.IsBitSetTo1(_paramShoot, 0);
         if (bullet)
         {
+            /* CONFIG BULLET */
+            
+            // Homing Rocket ?
+            _homingMissile = bullet.GetComponent<HomingMissile>();
+            _homingMissile.enabled = BitExtensions.IsBitSetTo1(_paramShoot, 0);
+            
+            // Toxins ?
+            _shellExplosion = bullet.GetComponent<ShellExplosion>();
+            _shellExplosion.isContainToxic = BitExtensions.IsBitSetTo1(_paramShoot, 1);
+            Debug.Log(_shellExplosion.isContainToxic);
+
+
             bullet.transform.position = fireTransform.position;
             bullet.transform.rotation = fireTransform.rotation;
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
