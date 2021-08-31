@@ -102,7 +102,7 @@ public class TankShooting : MonoBehaviour
         // Set the fired flag so only Fire is only called once.
         m_Fired = true;
 
-        Debug.Log(m_ShootingHandle);
+        // Debug.Log(m_ShootingHandle);
 
         m_ShootingHandle.Fire(gameObject, m_CurrentLaunchForce, paramsShoot);
         // ShootFactory.Fire(m_ShootingMode, gameObject, m_FireTransform, m_CurrentLaunchForce, paramsShoot);

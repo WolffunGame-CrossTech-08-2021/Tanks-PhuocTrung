@@ -7,7 +7,7 @@ public class RapidShoot : Shoot
     public int numBullets = 4;
     public override void Fire(GameObject tankObject, float force, int paramShoot)
     {
-        Debug.Log("RapidShoot");
+        // Debug.Log("RapidShoot");
         Transform fireTransform = FindFireTransform(tankObject);
         for (int i = 0; i < numBullets; i++)
         {

@@ -38,12 +38,8 @@ public class InputManager : Singleton<InputManager>
         int index = currentShootingHandleIndex + 1 >= GameManager.Instance.m_Shoots.Length 
             ? 0 : currentShootingHandleIndex + 1;
 
-        Debug.Log("Change weapon: " + index);
-
         currentTankShooting.m_ShootingHandle =
             GameManager.Instance.m_Shoots[index];
         currentShootingHandleIndex = index;
-
-        Debug.Log(currentTankShooting.m_ShootingHandle);
     }
 }
