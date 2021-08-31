@@ -4,6 +4,9 @@ public class ShootFactory : MonoBehaviour
 {
     public static void Fire(TankShootingMode mode, GameObject tankObject, Transform fireTransform, float force, int paramsShoot)
     {
+
+        return;
+        /*
         IShoot shoot;
         switch (mode)
         {
@@ -20,6 +23,6 @@ public class ShootFactory : MonoBehaviour
                 break;
         }
         
-        shoot.Fire(tankObject, fireTransform, force);
+        shoot.Fire(tankObject, fireTransform, force);*/
     }
 }

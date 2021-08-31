@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
-public class RapidShoot : IShoot
+[CreateAssetMenu(menuName = "Tanks/Shoot/RapidShoot")]
+public class RapidShoot : Shoot
 {
     [HideInInspector]
     public int numBullets = 4;
-    public void Fire(GameObject tankObject, Transform fireTransform, float force)
+    public override void Fire(GameObject tankObject, float force, int paramShoot)
     {
+        Debug.Log("RapidShoot");
+        Transform fireTransform = FindFireTransform(tankObject);
         for (int i = 0; i < numBullets; i++)
         {
             GameObject bullet = BulletObjectPool.Instance.GetPooledObject();

@@ -12,8 +12,9 @@ public class NormalShoot : IShoot
         _paramShoot = paramsShoot;
     }
     
-    public void Fire(GameObject tankObject, Transform fireTransform, float force)
+    public void Fire(GameObject tankObject, Transform fireTransformVjp, float force)
     {
+        Transform fireTransform = tankObject.transform.Find("FireTransform");
         GameObject bullet = BulletObjectPool.Instance.GetPooledObject();
         if (bullet)
         {

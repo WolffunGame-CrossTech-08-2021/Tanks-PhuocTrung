@@ -1,20 +1,22 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ConeShoot : IShoot
+[CreateAssetMenu(menuName = "Tanks/Shoot/ConeShoot")]
+public class ConeShoot : Shoot
 {
     public int numBullets = 5;
     public float angleCone = 10f;
 
     private int numBulletsHalf;
 
-    public ConeShoot()
+    private void Awake()
     {
         numBulletsHalf = numBullets / 2;
     }
 
-    public void Fire(GameObject tankObject, Transform fireTransform, float force)
+    public override void Fire(GameObject tankObject, float force, int paramShoot)
     {
+        Transform fireTransform = FindFireTransform(tankObject);
         for (int i = -numBulletsHalf; i <= numBulletsHalf; i++)
         {
             Vector3 bulletRotaion = fireTransform.rotation.eulerAngles;

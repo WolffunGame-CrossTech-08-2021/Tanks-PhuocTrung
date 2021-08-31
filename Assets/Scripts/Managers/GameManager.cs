@@ -17,6 +17,8 @@ public class GameManager : Singleton<GameManager>
     public GameObject baseItemPrefab;
     public ItemObject[] m_Items;
 
+    public Shoot[] m_Shoots;
+
     [HideInInspector]
     public bool isGameStarted;
 

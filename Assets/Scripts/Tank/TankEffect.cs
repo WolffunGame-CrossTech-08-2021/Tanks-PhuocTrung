@@ -11,6 +11,8 @@ public class TankEffect : MonoBehaviour
         foreach (var effect in _currentEffects.ToList())
             if (!effect.ProcessTick())
                 RemoveEffect(effect);
+        // Remove effect here
+        
     }
 
     public void AddEffect(Effect newEffect)

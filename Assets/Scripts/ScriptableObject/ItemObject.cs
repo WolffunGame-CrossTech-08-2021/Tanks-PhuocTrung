@@ -9,7 +9,7 @@ public class ItemObject : ScriptableObject
     public Mesh mesh;
     public Color color = Color.white;
     public float scale = 1.0f;
-    public EffectObject[] effects;
+    public EffectConfig[] effects;
 
     public void ActiveItem(GameObject tank)
     {

@@ -14,9 +14,9 @@ public abstract class Item
     {
         if (!_itemObject) return;
         TankEffect tankEffect = tank.GetComponent<TankEffect>();
-        foreach (EffectObject effect in _itemObject.effects)
+        foreach (var effect in _itemObject.effects)
         {
-            Effect currentEffect = effect.GetCurrentEffect(tank);
+            Effect currentEffect = effect.EffectObjectLogic.GetCurrentEffect(tank);
             tankEffect.AddEffect(currentEffect);
             currentEffect.ActiveEffect();
         }
