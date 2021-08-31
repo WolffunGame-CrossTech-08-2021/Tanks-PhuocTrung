@@ -3,7 +3,6 @@
 [CreateAssetMenu(menuName = "Tanks/Shoot/RapidShoot")]
 public class RapidShoot : Shoot
 {
-    [HideInInspector]
     public int numBullets = 4;
     public override void Fire(GameObject tankObject, float force, int paramShoot)
     {

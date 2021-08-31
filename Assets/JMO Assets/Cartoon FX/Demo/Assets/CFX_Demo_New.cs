@@ -230,7 +230,7 @@ public class CFX_Demo_New : MonoBehaviour
 		{
 			if(onScreenParticles[i] != null)
 			{
-				GameObject.Destroy(onScreenParticles[i]);
+				//GameObject.Destroy(onScreenParticles[i]);
 			}
 			
 			onScreenParticles.RemoveAt(i);

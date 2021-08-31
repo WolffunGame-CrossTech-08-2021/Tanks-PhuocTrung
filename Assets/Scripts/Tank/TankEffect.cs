@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class TankEffect : MonoBehaviour
 {
-    private List<Effect> _currentEffects = new List<Effect>();
-    private Queue<Effect> _removingEffects = new Queue<Effect>();
+    private List<Effect> _currentEffects = new List<Effect>(5);
+    // private Queue<Effect> _removingEffects = new Queue<Effect>(5);
+    private List<Effect> _removingEffectsVjp = new List<Effect>(5);
 
     private void Update()
     {
+        _removingEffectsVjp.Clear();
+
         foreach (Effect effect in _currentEffects)
             if (!effect.ProcessTick())
-                _removingEffects.Enqueue(effect);
+                _removingEffectsVjp.Add(effect);
+                // _removingEffects.Enqueue(effect);
 
         // Remove effect here
+
+        foreach (var effect in _removingEffectsVjp)
+            RemoveEffect(effect);
+
+        /*
         while (_removingEffects.Count > 0)
         {
             Effect effect = _removingEffects.Dequeue();
@@ -21,6 +30,7 @@ public class TankEffect : MonoBehaviour
                 break;
             RemoveEffect(effect);
         }
+        */
     }
 
     public void AddEffect(Effect newEffect)

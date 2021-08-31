@@ -57,8 +57,8 @@ public class CFX_LightIntensityFade : MonoBehaviour
 		}
 		else
 		{
-			if(autodestruct)
-				GameObject.Destroy(this.gameObject);
+			//if(autodestruct)
+			//	GameObject.Destroy(this.gameObject);
 		}
 		
 	}
