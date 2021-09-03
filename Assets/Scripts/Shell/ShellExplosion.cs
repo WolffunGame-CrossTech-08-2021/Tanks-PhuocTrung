@@ -7,7 +7,6 @@ public class ShellExplosion : MonoBehaviour
 {
     public LayerMask m_TankMask;                        // Used to filter what the explosion affects, this should be set to "Players".
     public ParticleSystem m_ExplosionParticles;         // Reference to the particles that will play on explosion.
-    public ParticleSystem m_TemPar;
     public AudioSource m_ExplosionAudio;                // Reference to the audio that will play on explosion.
     public float m_MaxDamage = 100f;                    // The amount of damage done if the explosion is centred on a tank.
     public float m_ExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
@@ -29,7 +28,7 @@ public class ShellExplosion : MonoBehaviour
     {
         // If it isn't destroyed by then, destroy the shell after it's lifetime.
         // Destroy(gameObject, m_MaxLifeTime);
-        StartCoroutine(BulletObjectPool.DeactiveObject(gameObject, m_MaxLifeTime));
+        // StartCoroutine(BulletObjectPool.DeactiveObject(gameObject, m_MaxLifeTime));
     }
 
     private void Update()
@@ -98,22 +97,17 @@ public class ShellExplosion : MonoBehaviour
             targetHealth.TakeDamage(damage);
         }
 
-        //m_ExplosionParticles.transform.position = gameObject.transform.position;
-        m_TemPar.transform.position = gameObject.transform.position;
-        // Unparent the particles from the shell.
-        // m_ExplosionParticles.transform.parent = null;
+        m_ExplosionParticles.transform.position =
+            new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        m_ExplosionParticles.transform.parent = null;
 
         // Play the particle system.
-        m_TemPar.Play();
-
+        m_ExplosionParticles.Play();
 
         // Play the explosion sound effect.
-        // m_ExplosionAudio.Play();
+        m_ExplosionAudio.Play();
 
-        // BulletObjectPool.DeactiveObject(m_ExplosionParticles.gameObject, m_ExplosionParticles.main.duration);
-
-        //gameObject.SetActive(false);
-        StartCoroutine(BulletObjectPool.Instance.DeactiveObjectWithTime(gameObject, 2f));
+        BulletObjectPool.Instance.DeActiveObject(gameObject);
     }
 
     private float CalculateDamage(Vector3 targetPosition)

@@ -4,65 +4,42 @@ using UnityEngine;
 
 public class BulletObjectPool : Singleton<BulletObjectPool>
 {
-    public List<GameObject> pooledObjects = new List<GameObject>(10);
-    public Queue<GameObject> freePool = new Queue<GameObject>(10);
+    [HideInInspector]
+    public Queue<GameObject> pool;
     public GameObject objectToPool;
-    public int amountToPool;
+    public int amount;
 
-    private void Start()
+    private void Awake()
     {
-        // pooledObjects = new Queue<GameObject>();
+        pool = new Queue<GameObject>(amount);
         GameObject tmp;
-        for(int i = 0; i < amountToPool; i++)
+        for(int i = 0; i < amount; i++)
         {
             tmp = Instantiate(objectToPool, transform);
             tmp.SetActive(false);
-            // pooledObjects.Enqueue(tmp);
-            freePool.Enqueue(tmp);
+            pool.Enqueue(tmp);
         }
     }
 
     public GameObject GetPooledObject()
     {
-        if (freePool.Count > 0)
+        if (pool.Count > 0)
         {
-            GameObject obj = freePool.Dequeue();
+            GameObject obj = pool.Dequeue();
             obj.SetActive(true);
             return obj;
         } else
         {
+            Debug.Log("Instantiate bullet");
             GameObject tmp = Instantiate(objectToPool, transform);
-            pooledObjects.Add(tmp);
+            pool.Enqueue(tmp);
             return tmp;
         }
-
-        /*
-        for(int i = 0; i < amountToPool; i++)
-        {
-            if(!pooledObjects[i].activeInHierarchy)
-            {
-                return pooledObjects[i];
-            }
-        }
-        GameObject tmp = Instantiate(objectToPool);
-        pooledObjects.Add(tmp);
-        return tmp;*/
     }
 
-    public static IEnumerator DeactiveObject(GameObject _gameObject, float timeDelay)
+    public void DeActiveObject(GameObject bullet)
     {
-
-        yield return new WaitForSeconds(timeDelay);
-        _gameObject.SetActive(false);
-
-        
-    }
-
-    public IEnumerator DeactiveObjectWithTime(GameObject gameObject, float time)
-    {
-        yield return new WaitForSeconds(time);
-        gameObject.SetActive(false);
-        freePool.Enqueue(gameObject);
-        pooledObjects.Remove(gameObject);
+        bullet.SetActive(false);
+        pool.Enqueue(bullet);
     }
 }
