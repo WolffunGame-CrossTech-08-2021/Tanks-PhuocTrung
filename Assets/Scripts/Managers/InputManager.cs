@@ -35,8 +35,7 @@ public class InputManager : Singleton<InputManager>
         /*TankShootingMode currentMode = currentTankShooting.m_ShootingMode;
         currentTankShooting.m_ShootingMode = currentMode.Next();*/
 
-        int index = currentShootingHandleIndex + 1 >= GameManager.Instance.m_Shoots.Length 
-            ? 0 : currentShootingHandleIndex + 1;
+        int index = (currentShootingHandleIndex + 1) % GameManager.Instance.m_Shoots.Length;
 
         currentTankShooting.m_ShootingHandle =
             GameManager.Instance.m_Shoots[index];
