@@ -104,4 +104,14 @@ public class TankMovement : MonoBehaviour
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
     }
+
+    public float GetSpeed()
+    {
+        return m_Speed;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        m_Speed = speed;
+    }
 }

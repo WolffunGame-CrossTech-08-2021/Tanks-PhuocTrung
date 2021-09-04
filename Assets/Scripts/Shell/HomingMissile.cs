@@ -9,7 +9,7 @@ public class HomingMissile : MonoBehaviour
     public float rotateSpeed = 200f;
 
     private Rigidbody rbShell;
-    private GameObject tankShoot;
+    private int tankShoot;
 
     private Rigidbody target;
 
@@ -21,7 +21,12 @@ public class HomingMissile : MonoBehaviour
     private void OnEnable()
     {
         if (rbShell.transform.parent)
-            tankShoot = rbShell.transform.parent.gameObject;
+            tankShoot = rbShell.transform.parent.gameObject.GetComponent<TankMovement>().m_PlayerNumber;
+    }
+
+    private void OnDisable()
+    {
+        target = null;
     }
 
 
@@ -35,7 +40,7 @@ public class HomingMissile : MonoBehaviour
                 Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
                 if (!targetRigidbody)
                     break;
-                if (colliders[i].gameObject == tankShoot)
+                if (colliders[i].gameObject.GetComponent<TankMovement>().m_PlayerNumber == tankShoot)
                     continue;
                 target = targetRigidbody;
                 break;
@@ -48,10 +53,5 @@ public class HomingMissile : MonoBehaviour
             Quaternion rocketTargetRot = Quaternion.LookRotation(target.position - rbShell.transform.position);
             rbShell.MoveRotation(Quaternion.RotateTowards(rbShell.transform.rotation, rocketTargetRot, rotateSpeed));
         }
-    }
-
-    private void OnDestroy()
-    {
-        target = null;
     }
 }

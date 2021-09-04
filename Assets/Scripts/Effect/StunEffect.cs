@@ -13,14 +13,14 @@ public class StunEffect : Effect
     public override void ActiveEffect()
     {
         base.ActiveEffect();
-        _currentMovevomentSpeed = _tankMovement.m_Speed;
+        _currentMovevomentSpeed = _tankMovement.GetSpeed();
         _tankMovement.m_Speed = 0;
     }
 
     public override void DeactiveEffect()
     {
         base.DeactiveEffect();
-        _tankMovement.m_Speed = _currentMovevomentSpeed;
+        _tankMovement.SetSpeed(_currentMovevomentSpeed);
         _currentMovevomentSpeed = 0f;
     }
 }
